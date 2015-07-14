@@ -1,0 +1,30 @@
+<div ng-controller="CustomersController as CC">
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<input type="text" ng-model="CC.new_customer.name">
+			<input type="submit" ng-click="CC.addcustomer()">
+			<p>Filter Customers</p>
+			<input type="text" ng-model="filter_name">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<td>Date</td>
+						<td>Time</td>
+						<td>Patient Name</td>
+						<td>Complain</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="appointment in CC.appointments | filter: filter_name | orderBy: ['date', 'time']" ng-if="appointment.date >= CC.datenow">
+						<td ng-bind="appointment.date | date"></td>
+						<td ng-bind="appointment.time"></td>
+						<td ng-bind="appointment.name"></td>
+						<td><span ng-bind="appointment.complain"></span> <input ng-if="appointment.name == CC.name && appointment.date !== CC.datenow" type="submit" value="cancel" ng-click="CC.removeappointment(appointment._id)"></td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="#/new_appointment">Add a new appointment</a>
+		</div>
+	</div>
+</div>
